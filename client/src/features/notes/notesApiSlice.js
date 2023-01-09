@@ -15,10 +15,11 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       query: () => '/notes',
       validateStatus: (response, result) =>
         response.status === 200 && !result.isError,
-      transformResponse: (responseData) => {
-        const loadedNotes = responseData.map((r) => ({ ...r, id: r._id }))
-        return notesAdapter.setAll(initialState, loadedNotes)
-      },
+      transformResponse: (responseData) =>
+        notesAdapter.setAll(
+          initialState,
+          responseData.map((r) => ({ ...r, id: r._id }))
+        ),
       keepUnusedDataFor: 5,
       providesTags: (result, _error, _arg) => {
         return result?.ids
@@ -33,9 +34,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       query: (initialNote) => ({
         url: '/notes',
         method: 'POST',
-        body: {
-          ...initialNote,
-        },
+        body: initialNote,
       }),
       invalidatesTags: [{ type: 'Note', id: 'LIST' }],
     }),
@@ -43,9 +42,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       query: (initialNote) => ({
         url: '/notes',
         method: 'PATCH',
-        body: {
-          ...initialNote,
-        },
+        body: initialNote,
       }),
       invalidatesTags: (_result, _error, arg) => [{ type: 'Note', id: arg.id }],
     }),

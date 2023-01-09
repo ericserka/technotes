@@ -11,10 +11,11 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: () => '/users',
       validateStatus: (response, result) =>
         response.status === 200 && !result.isError,
-      transformResponse: (responseData) => {
-        const loadedUsers = responseData.map((r) => ({ ...r, id: r._id }))
-        return usersAdapter.setAll(initialState, loadedUsers)
-      },
+      transformResponse: (responseData) =>
+        usersAdapter.setAll(
+          initialState,
+          responseData.map((r) => ({ ...r, id: r._id }))
+        ),
       keepUnusedDataFor: 5,
       providesTags: (result, _error, _arg) => {
         return result?.ids
@@ -29,9 +30,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: (initialUserData) => ({
         url: '/users',
         method: 'POST',
-        body: {
-          ...initialUserData,
-        },
+        body: initialUserData,
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
@@ -39,9 +38,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: (initialUserData) => ({
         url: '/users',
         method: 'PATCH',
-        body: {
-          ...initialUserData,
-        },
+        body: initialUserData,
       }),
       invalidatesTags: (_result, _error, arg) => [{ type: 'User', id: arg.id }],
     }),
