@@ -9,7 +9,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => '/users',
-      validateStatus: (_response, result) => !result.isError,
+      validateStatus: (response, result) =>
+        response.status === 200 && !result.isError,
       transformResponse: (responseData) => {
         const loadedUsers = responseData.map((r) => ({ ...r, id: r._id }))
         return usersAdapter.setAll(initialState, loadedUsers)
