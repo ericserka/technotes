@@ -8,12 +8,13 @@ import { corsOptions } from './config/corsOptions.js'
 import { connectDB } from './config/dbConn.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import { logger } from './middleware/logger.js'
+import { authRouter } from './routes/authRoutes.js'
 import { notesRouter } from './routes/notesRoutes.js'
 import { rootRouter } from './routes/root.js'
 import { usersRouter } from './routes/usersRoutes.js'
 
 const app = express()
-const PORT = process.env.PORT || 3500
+const PORT = process.env.PORT || 3000
 
 config()
 connectDB()
@@ -26,6 +27,7 @@ app.use(cookieParser())
 app.use('/', express.static(new URL('./public', import.meta.url).pathname))
 
 app.use('/', rootRouter)
+app.use('/auth', authRouter)
 app.use('/users', usersRouter)
 app.use('/notes', notesRouter)
 

@@ -5,8 +5,11 @@ import {
   getAllNotes,
   updateNote,
 } from '../controllers/notesController.js'
+import { verifyJWT } from '../middleware/verifyJWT.js'
 
 export const notesRouter = express.Router()
+
+notesRouter.use(verifyJWT)
 
 notesRouter
   .route('/')
