@@ -1,0 +1,51 @@
+# Logs
+client/logs
+client/*.log
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+client/pnpm-debug.log*
+client/lerna-debug.log*
+
+client/dist
+client/dist-ssr
+client/*.local
+
+# Editor directories and files
+client/.vscode/*
+client/!.vscode/extensions.json
+client/.idea
+client/.DS_Store
+client/*.suo
+client/*.ntvs*
+client/*.njsproj
+client/*.sln
+client/*.sw?
+
+# Server
+
+# The directory Mix will write compiled artifacts to.
+server/_build/
+
+# If you run "mix test --cover", coverage assets end up here.
+server/cover/
+
+# The directory Mix downloads your dependencies sources to.
+server/deps/
+
+# Where 3rd-party dependencies like ExDoc output generated docs.
+server/doc/
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+server/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+server/erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+server/*.ez
+
+# Ignore package tarball (built via "mix hex.build").
+server/technotes-*.tar
+
+*/node_modules
