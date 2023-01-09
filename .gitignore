@@ -25,3 +25,5 @@ client/*.sw?
 */node_modules
 
 server/logs
+
+.env

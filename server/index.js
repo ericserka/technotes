@@ -1,14 +1,20 @@
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import { config } from 'dotenv'
 import express from 'express'
+import mongoose from 'mongoose'
 import { URL } from 'url'
 import { corsOptions } from './config/corsOptions.js'
+import { connectDB } from './config/dbConn.js'
 import { errorHandler } from './middleware/errorHandler.js'
 import { logger } from './middleware/logger.js'
 import { router } from './routes/root.js'
 
 const app = express()
 const PORT = process.env.PORT || 3500
+
+config()
+connectDB()
 
 app.use(logger)
 app.use(cors(corsOptions))
@@ -32,4 +38,15 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB')
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+})
+
+mongoose.connection.on('error', (err) => {
+  console.log(err)
+  logEvents(
+    `${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,
+    'mongoErrLog.log'
+  )
+})
