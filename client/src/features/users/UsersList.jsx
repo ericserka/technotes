@@ -8,10 +8,10 @@ export const UsersList = () => {
     isSuccess,
     isError,
     error,
-  } = useGetUsersQuery(undefined, {
-    refetchOnMountOrArgChange: true,
+  } = useGetUsersQuery('usersList', {
     pollingInterval: 60000,
     refetchOnFocus: true,
+    refetchOnMountOrArgChange: true,
   })
 
   let content
