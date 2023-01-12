@@ -11,5 +11,6 @@ export const errorHandler = (err, req, res, _next) => {
 
   res.status(status)
 
-  res.json({ message: err.message })
+  // adding isError for use in RTK Query
+  res.json({ message: err.message, isError: true })
 }
