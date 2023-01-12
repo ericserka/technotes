@@ -14,8 +14,10 @@ import { NotesList } from './features/notes/NotesList'
 import { EditUser } from './features/users/EditUser'
 import { NewUserForm } from './features/users/NewUserForm'
 import { UsersList } from './features/users/UsersList'
+import { useTitle } from './hooks/useTitle'
 
 export const App = () => {
+  useTitle('Dan D. Repairs')
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

@@ -1,4 +1,5 @@
-import { User } from './User'
+import PulseLoader from 'react-spinners/PulseLoader'
+import { MemoizedUser } from './User'
 import { useGetUsersQuery } from './usersApiSlice'
 
 export const UsersList = () => {
@@ -16,7 +17,7 @@ export const UsersList = () => {
 
   let content
 
-  if (isLoading) content = <p>Loading...</p>
+  if (isLoading) content = <PulseLoader color="#FFF" />
 
   if (isError) {
     content = <p className="errmsg">{error?.data?.message}</p>
@@ -26,7 +27,8 @@ export const UsersList = () => {
     const { ids } = users
 
     const tableContent =
-      ids?.length && ids.map((userId) => <User key={userId} userId={userId} />)
+      ids?.length &&
+      ids.map((userId) => <MemoizedUser key={userId} userId={userId} />)
 
     content = (
       <table className="table table--users">
